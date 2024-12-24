@@ -27,3 +27,5 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(PORT || 3005, () => {
   console.log(`Server is running on ${PORT}`);
 });
+
+export { app };
