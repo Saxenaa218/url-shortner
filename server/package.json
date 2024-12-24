@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "start": "nodemon && ts-node src/index.ts"
+    "start": "nodemon && ts-node src/index.ts",
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",
