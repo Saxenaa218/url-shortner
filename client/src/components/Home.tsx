@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Input, message, Typography } from "antd";
+import { Button, Form, Input, message, Typography } from "antd";
 import { generateShortUrl, validateUrl } from "../utils";
 import { saveNewUrl } from "../controllers/saveNewUrl";
 import Loader from "./Loader";
@@ -13,17 +13,17 @@ const Home = () => {
     shortUrlId: null,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [form] = Form.useForm();
 
-  const handleProcess = (e) => {
-    e.preventDefault();
-    const isUrlCorrect = validateUrl(e.target[0].value);
+  const handleProcess = (values: { url: string }) => {
+    const isUrlCorrect = validateUrl(values.url);
     if (isUrlCorrect) {
       setIsLoading(true);
       (async () => {
         try {
           const {
             data: { originalURL, shortUrlId },
-          } = await saveNewUrl(e.target[0].value);
+          } = await saveNewUrl(values.url);
           setResult({ originalURL, shortUrlId });
         } catch {
           setResult({
@@ -45,12 +45,29 @@ const Home = () => {
   return (
     <div className="w-full py-40 px-10 md:px-20 lg:px-40">
       <h1 className="text-5xl mb-10 text-center">Create Short URL</h1>
-      <form onSubmit={handleProcess} className="flex items-center gap-5">
-        <Input placeholder="paste your url" size="large" autoFocus />
-        <Button type="primary" htmlType="submit" size="large">
-          Create URL
-        </Button>
-      </form>
+      <Form
+        onFinish={handleProcess}
+        className="flex items-center gap-5 w-full"
+        form={form}
+      >
+        <Form.Item
+          className="flex-1"
+          name="url"
+          rules={[{ required: true, message: "please enter the URL" }]}
+        >
+          <Input
+            placeholder="paste your url"
+            size="large"
+            autoFocus
+            autoComplete="off"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" size="large">
+            Create URL
+          </Button>
+        </Form.Item>
+      </Form>
       <section className="mt-5">
         {isLoading ? (
           <Loader fontSize={28} />

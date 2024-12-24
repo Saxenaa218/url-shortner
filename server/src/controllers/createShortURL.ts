@@ -22,7 +22,7 @@ export const createShortURL = async (req: Request, resp: Response) => {
   const urlObj = await UrlModel.create({
     originalURL: url,
     shortUrlId: nanoid(6),
-    createdAt: new Date().getTime(),
+    createdAt: new Date(),
   });
 
   resp.status(200).send({ message: "success!", data: urlObj });

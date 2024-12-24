@@ -1,12 +1,15 @@
-import { Button, Result, Table, TableColumnsType, Typography } from "antd";
+import {
+  Button,
+  Result,
+  Table,
+  TableColumnsType,
+  Tooltip,
+  Typography,
+} from "antd";
 import { useAllUrlObjects } from "../hooks/useAllUrlObjects";
 import Loader from "./Loader";
 import { generateShortUrl } from "../utils";
 import { DeleteFilled } from "@ant-design/icons";
-import dayjs from "dayjs";
-import calendar from "dayjs/plugin/calendar";
-
-dayjs.extend(calendar);
 
 interface DataType {
   originalURL: string;
@@ -38,7 +41,11 @@ const Admin = () => {
     {
       title: "Created At",
       dataIndex: "createdAt",
-      render: (date) => Date(date).toLocaleString(),
+      render: (createdAt) => (
+        <Tooltip title={createdAt}>
+          {new Date(createdAt).toLocaleString()}
+        </Tooltip>
+      ),
     },
     {
       title: "Options",
