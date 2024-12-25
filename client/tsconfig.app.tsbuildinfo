@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/constants.ts","./src/main.tsx","./src/utils.ts","./src/vite-env.d.ts","./src/components/admin.tsx","./src/components/home.tsx","./src/components/loader.tsx","./src/components/redirector.tsx","./src/controllers/getoriginalurl.ts","./src/controllers/savenewurl.ts","./src/hooks/useallurlobjects.ts"],"version":"5.6.3"}
